@@ -4,7 +4,7 @@ import { IComponent, IProperty } from "../../shared/interface";
 
 @Component({
   selector: "app-input",
-  template: `<input [id]="property.id" [type]="property.type" [style]="property.style" [value]="property.value" />`
+  template: `<input (keyup)="keyPressHandler($event)" [id]="property.id" [type]="property.type" [style]="property.style" [value]="property.value" />`
 })
 
 export class InputComponent implements IComponent {
@@ -38,5 +38,25 @@ export class InputComponent implements IComponent {
       this._property = this.initProperty;
     }
   }
+
+  keyPressHandler(event: any) {
+    this.property.value = event.target.value
+  }
+
+  // get inputValue(): string {
+  //   if (this.property) {
+  //     return this.property.value;
+  //   } else {
+  //     return "input";
+  //   }
+  // }
+
+  // set inputValue(value: string) {
+  //   if (this.property) {
+  //     this.property.value = value;
+  //   } else {
+  //     this.initProperty.value = value
+  //   }
+  // }
 
 }
