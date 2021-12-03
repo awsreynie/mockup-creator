@@ -46,4 +46,38 @@ export class AppComponent implements OnInit {
 
     this.renderer.appendChild(this.canvas.nativeElement, newButton); //append the button to the canvas div
   }
+
+  createTextbox() {
+    const newTextbox = this.renderer.createElement('textarea');
+    let ref = this.drag.createDrag(newTextbox);
+    ref.withBoundaryElement(this.canvas);
+    this.renderer.setProperty(newTextbox, 'placeholder', 'Insert text here...');
+    this.renderer.addClass(newTextbox, 'textarea');
+    this.renderer.appendChild(this.canvas.nativeElement, newTextbox);
+  }
+
+  createPopup() {
+    /* const div = this.renderer.createElement('div');
+    let ref = this.drag.createDrag(div);
+    ref.withBoundaryElement(this.canvas);
+    const btn = this.renderer.createElement('button');
+    this.renderer.setProperty(btn, 'type', 'button');
+    const text = this.renderer.createText('Button');
+    this.renderer.appendChild(btn, text);
+    this.renderer.appendChild(div, btn);
+    this.renderer.appendChild(this.canvas.nativeElement, div);
+    console.log(div); */
+    const newPopup = this.renderer.createElement('button');
+    const text = this.renderer.createText('Popup');
+    let ref = this.drag.createDrag(newPopup);
+    ref.withBoundaryElement(this.canvas);
+    this.renderer.setProperty(newPopup, 'type', 'button');
+    this.renderer.addClass(newPopup, 'popup');
+    this.renderer.setAttribute(newPopup, 'placement', "top");
+    this.renderer.setAttribute(newPopup, 'ngbPopover', "This is a popup");
+    this.renderer.setAttribute(newPopup, 'popoverTitle', "This is a popup");
+    this.renderer.appendChild(newPopup, text);
+    this.renderer.appendChild(this.canvas.nativeElement, newPopup);
+    console.log(newPopup);
+  }
 }
