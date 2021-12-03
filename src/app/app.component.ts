@@ -57,25 +57,15 @@ export class AppComponent implements OnInit {
   }
 
   createPopup() {
-    /* const div = this.renderer.createElement('div');
-    let ref = this.drag.createDrag(div);
-    ref.withBoundaryElement(this.canvas);
-    const btn = this.renderer.createElement('button');
-    this.renderer.setProperty(btn, 'type', 'button');
-    const text = this.renderer.createText('Button');
-    this.renderer.appendChild(btn, text);
-    this.renderer.appendChild(div, btn);
-    this.renderer.appendChild(this.canvas.nativeElement, div);
-    console.log(div); */
     const newPopup = this.renderer.createElement('button');
-    const text = this.renderer.createText('Popup');
+    const text = this.renderer.createText("Popup");
     let ref = this.drag.createDrag(newPopup);
     ref.withBoundaryElement(this.canvas);
     this.renderer.setProperty(newPopup, 'type', 'button');
     this.renderer.addClass(newPopup, 'popup');
-    this.renderer.setAttribute(newPopup, 'placement', "top");
-    this.renderer.setAttribute(newPopup, 'ngbPopover', "This is a popup");
-    this.renderer.setAttribute(newPopup, 'popoverTitle', "This is a popup");
+    this.renderer.setProperty(newPopup, 'placement', "top");
+    this.renderer.setProperty(newPopup, 'ngbPopover', "This is a popup");
+    this.renderer.setProperty(newPopup, 'popoverTitle', "This is a popup");
     this.renderer.appendChild(newPopup, text);
     this.renderer.appendChild(this.canvas.nativeElement, newPopup);
     console.log(newPopup);
