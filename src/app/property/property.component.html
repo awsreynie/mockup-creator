@@ -1,0 +1,24 @@
+<div>
+  <table border="1" [cellSpacing]="1">
+    <tr>
+      <td style="background-color: white;"><label>id</label></td>
+      <td><input type="text" [id] ="property.id" [value]="property.id" (keyup)="idChangeHandler($event)"></td>
+    </tr>
+    <tr>
+      <td style="background-color: white;"><label>value</label></td>
+      <td><input type="text" [value]="property.value" (keyup)="valueChangeHandler($event)"></td>
+    </tr>
+    <tr>
+      <td style="background-color: white;"><label>type</label></td>
+      <td><input type="text" [value]="property.type" (keyup)="typeChangeHandler($event)"></td>
+    </tr>
+    <tr>
+      <td style="background-color: white;"><label>style</label></td>
+      <td><input type="text" [value]="property.style" (keyup)="styleChangeHandler($event)"></td>
+    </tr>
+    <tr>
+      <td style="background-color: white;"><label>class</label></td>
+      <td><input type="text" [value]="property.class" (keyup)="classChangeHandler($event)"></td>
+    </tr>
+  </table>
+</div>

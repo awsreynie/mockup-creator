@@ -10,15 +10,26 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LabelModule } from './component/label/label.module';
+import { InputModule } from './component/input/input.module';
+import { PropertyModule } from './property/property.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     PaletteComponent,
-    CanvasComponent,
+    CanvasComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, NgbModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    NgbModule,
+    LabelModule,
+    InputModule,
+    PropertyModule
+  ],
   providers: [DragDropModule],
   bootstrap: [AppComponent],
 })

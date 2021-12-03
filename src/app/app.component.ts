@@ -12,6 +12,10 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
+import { InputComponent } from './component/input/input.component';
+import { LabelComponent } from './component/label/label.component';
+import { EmptyComponent } from './shared/classes';
+import { IComponent } from './shared/interface';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +24,8 @@ import {
 })
 export class AppComponent implements OnInit {
   title = 'mockup-creator';
+  canvasComponent: IComponent[] = [];
+  selectedComponent: IComponent = new EmptyComponent;
 
   @ViewChild('canvas') canvas!: ElementRef;
 
@@ -27,6 +33,23 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     /* throw new Error('Method not implemented.'); */
+  }
+
+  addComponentHandler(component: string) {
+    let tmpComponent: IComponent;
+    switch(component) {
+      case "label":
+        tmpComponent = new LabelComponent;
+        break;
+      default:
+        tmpComponent = new InputComponent;
+        break;
+    }
+    this.canvasComponent.push(tmpComponent)
+  }
+
+  clickHandler(component: IComponent) {
+    this.selectedComponent = component;
   }
 
   createButton() {

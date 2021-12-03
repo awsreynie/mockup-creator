@@ -20,14 +20,14 @@
     <button class="accordion palette-item">Link</button>
     <button class="accordion palette-item">Header</button>
     <button class="accordion palette-item">Paragraph</button>
-    <button class="accordion palette-item">Label</button>
+    <button class="accordion palette-item" (click)="addComponentHandler('label')">Label</button>
     <button class="accordion palette-item" (click)="createButton()">
       Button
     </button>
     <button class="accordion palette-item">Dropbox</button>
     <button class="accordion palette-item">Checkbox</button>
     <button class="accordion palette-item">Radio</button>
-    <button class="accordion palette-item">Input Field</button>
+    <button class="accordion palette-item" (click)="addComponentHandler('input')">Input Field</button>
     <button class="accordion palette-item" (click)="createTextbox()">Textbox</button>
     <button class="accordion palette-item">Date Picker</button>
     <button class="accordion palette-item">Modal</button>
@@ -46,19 +46,25 @@
   <!-- CANVAS SECTION -->
 
   <div id="canvas-container">
-    <div id="canvas" #canvas></div>
+    <div id="canvas" #canvas>
+      <div [style]="component.initProperty.style" *ngFor="let component of canvasComponent"  [ngSwitch]="component.initProperty.typeObj" (click)="clickHandler(component)" >
+        <app-label [property]="component.initProperty" *ngIf="component.initProperty.typeObj == 'label'"></app-label>
+        <app-input [property]="component.initProperty" *ngSwitchCase="'input'"></app-input>
+      </div>
+    </div>
   </div>
 
   <!-- CODE SECTION -->
 
   <div id="code-container">
+    <app-property [property]="selectedComponent.initProperty"></app-property>
     <code><!-- INSERT CODE HERE VIA INTERPOLATION --></code>
   </div>
 </div>
 
 <script>
   $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();   
+    $('[data-toggle="popover"]').popover();
   });
 </script>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
