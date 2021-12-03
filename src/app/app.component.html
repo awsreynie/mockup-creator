@@ -6,49 +6,33 @@
     <div class="todo-container column-container">
       <div class="list"
       cdkDropList
-      #todoList="cdkDropList"
+      #paletteList="cdkDropList"
       [cdkDropListData]="paletteComponent"
-      [cdkDropListConnectedTo]="[doneList]">
+      [cdkDropListConnectedTo]="[canvasList]">
         <h2>Palette Components</h2>
-        <ul *ngFor="let palette of paletteComponent" [ngSwitch]="palette.typeObj" cdkDrag>
-          <li *ngSwitchCase="0">
-            <app-button></app-button>
-          </li>
-          <li *ngSwitchCase="1">
-            <app-label></app-label>
-          </li>
-          <li *ngSwitchCase="2">
-            <app-text-area enabled="false"></app-text-area>
-          </li>
-          <li *ngSwitchCase="3">
-            <app-input enabled="false"></app-input>
-          </li>
-        </ul>
+        <div *ngFor="let palette of paletteComponent" [ngSwitch]="palette.initProperty.typeObj" cdkDrag>
+          <app-button *ngIf="palette.initProperty.typeObj == 'button'"></app-button>
+          <app-label *ngSwitchCase="'label'"></app-label>
+          <app-text-area *ngSwitchCase="'textarea'"></app-text-area>
+          <app-input *ngSwitchCase="'input'"></app-input>
+        </div>
       </div>
     </div>
 
-    <div class="done-container column-container">
+    <div>
       <div class="list"
         cdkDropList
-        #doneList="cdkDropList"
+        #canvasList="cdkDropList"
         [cdkDropListData]="canvasComponent"
-        [cdkDropListConnectedTo]="todoList"
+        [cdkDropListConnectedTo]="paletteList"
         (cdkDropListDropped)="onDrop($event)">
         <h2>Canvas Components</h2>
-        <ul *ngFor="let canvas of canvasComponent" [ngSwitch]="canvas.typeObj" cdkDrag>
-          <li *ngSwitchCase="0">
-            <app-button></app-button>
-          </li>
-          <li *ngSwitchCase="1">
-            <app-label></app-label>
-          </li>
-          <li *ngSwitchCase="2">
-            <app-text-area></app-text-area>
-          </li>
-          <li *ngSwitchCase="3">
-            <app-input></app-input>
-          </li>
-        </ul>
+        <div class="{{component.initProperty.class}}" *ngFor="let component of components$ | async" [ngSwitch]="component.initProperty.typeObj" (click)="clickHandler(component)" cdkDrag>
+          <app-button [property]="component.initProperty" *ngIf="component.initProperty.typeObj == 'button'"></app-button>
+          <app-label [property]="component.initProperty" *ngSwitchCase="'label'"></app-label>
+          <app-text-area [property]="component.initProperty" *ngSwitchCase="'textarea'"></app-text-area>
+          <app-input [property]="component.initProperty" *ngSwitchCase="'input'"></app-input>
+        </div>
       </div>
     </div>
 
@@ -56,6 +40,6 @@
 
   <div class="column-container list-container">
     <h2>Component Property</h2>
-      <app-property [property]="selectedComponent"></app-property>
+      <app-property [property]="selectedComponent.initProperty"></app-property>
   </div>
 </div>

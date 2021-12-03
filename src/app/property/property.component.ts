@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 
-import { IComponent } from '../shared/interfaces';
+import { IProperty } from '../shared/interfaces';
 
 @Component({
   selector: "app-property",
@@ -8,13 +8,13 @@ import { IComponent } from '../shared/interfaces';
 })
 
 export class PropertyComponent implements OnInit {
-  private _property: IComponent;
+  private _property: IProperty;
 
-  @Input() get property(): IComponent {
+  @Input() get property(): IProperty {
     return this._property;
   }
 
-  set property(value: IComponent) {
+  set property(value: IProperty) {
     if(value) {
       this._property = value;
     }
@@ -27,6 +27,26 @@ export class PropertyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  idChangeHandler(event: any) {
+    this.property.id = event.target.value;
+  }
+
+  valueChangeHandler(event: any) {
+    this.property.value = event.target.value;
+  }
+
+  typeChangeHandler(event: any) {
+    this.property.type = event.target.value;
+  }
+
+  styleChangeHandler(event: any) {
+    this.property.style = event.target.value;
+  }
+
+  classChangeHandler(event: any) {
+    this.property.class = event.target.value;
   }
 
 }

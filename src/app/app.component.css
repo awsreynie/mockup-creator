@@ -1,10 +1,3 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 h2 {
   display: flex;
   justify-content: center;
@@ -20,6 +13,20 @@ ul {
   justify-content: space-around;
   margin-top: 2em;
 
+}
+
+.row {
+  display: inline-flex;
+}
+
+.color {
+  background-color: blueviolet;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .column-container {

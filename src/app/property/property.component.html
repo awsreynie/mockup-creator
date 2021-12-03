@@ -1,20 +1,24 @@
 <div>
   <table border="1" [cellSpacing]="1">
     <tr>
-      <td>id</td>
-      <td><input type="text" [value]="property.id"></td>
+      <td><label>id</label></td>
+      <td><input type="text" [id] ="property.id" [value]="property.id" (keyup)="idChangeHandler($event)"></td>
     </tr>
     <tr>
-      <td>name</td>
-      <td><input type="text" [value]="property.name"></td>
+      <td><label>value</label></td>
+      <td><input type="text" [value]="property.value" (keyup)="valueChangeHandler($event)"></td>
     </tr>
     <tr>
-      <td>category</td>
-      <td><input type="text" [value]="property.category"></td>
+      <td><label>type</label></td>
+      <td><input type="text" [value]="property.type" (keyup)="typeChangeHandler($event)"></td>
     </tr>
     <tr>
-      <td>type</td>
-      <td><input type="text" [value]="property.typeObj"></td>
+      <td><label>style</label></td>
+      <td><input type="text" [value]="property.style" (keyup)="styleChangeHandler($event)"></td>
+    </tr>
+    <tr>
+      <td><label>class</label></td>
+      <td><input type="text" [value]="property.class" (keyup)="classChangeHandler($event)"></td>
     </tr>
   </table>
 </div>
