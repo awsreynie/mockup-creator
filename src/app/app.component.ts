@@ -63,9 +63,8 @@ export class AppComponent implements OnInit {
     ref.withBoundaryElement(this.canvas);
     this.renderer.setProperty(newPopup, 'type', 'button');
     this.renderer.addClass(newPopup, 'popup');
-    this.renderer.setProperty(newPopup, 'placement', "top");
-    this.renderer.setProperty(newPopup, 'ngbPopover', "This is a popup");
-    this.renderer.setProperty(newPopup, 'popoverTitle', "This is a popup");
+    this.renderer.setProperty(newPopup, 'data-toggle', "popover");
+    this.renderer.setProperty(newPopup, 'data-content', "This is a popup");
     this.renderer.appendChild(newPopup, text);
     this.renderer.appendChild(this.canvas.nativeElement, newPopup);
     console.log(newPopup);
