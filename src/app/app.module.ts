@@ -11,6 +11,7 @@ import { ButtonModule } from './component/button/button.module';
 import { LabelModule } from './component/label/label.module';
 import { TextAreaModule } from './component/textarea/textarea.module';
 import { InputModule } from './component/input/input.module';
+import { PropertyModule } from './property/property.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { InputModule } from './component/input/input.module';
     BrowserModule,
     AppRoutingModule,
     DragDropModule,
+    PropertyModule,
     ButtonModule,
     LabelModule,
     TextAreaModule,

@@ -1,3 +1,4 @@
+import { IComponent } from "./interfaces";
 
 export class Variables {
   private static _buttonId = 1;
@@ -15,4 +16,12 @@ export class Variables {
   public static getTextAreaId() {
     return this._textAreaId++;
   }
+}
+
+export class EmptyComponent implements IComponent {
+  id = "";
+  name = "";
+  category = "";
+  typeObj = "";
+
 }

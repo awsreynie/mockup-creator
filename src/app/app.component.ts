@@ -6,6 +6,7 @@ import { ButtonComponent } from './component/button/button.component';
 import { LabelComponent } from './component/label/label.component';
 import { TextAreaComponent } from './component/textarea/textarea.component';
 import { InputComponent } from './component/input/input.component';
+import { EmptyComponent } from './shared/classes';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent {
 
   paletteComponent: IComponent[] = [new ButtonComponent, new LabelComponent, new TextAreaComponent, new InputComponent];
   canvasComponent: IComponent[] = [];
+  selectedComponent: IComponent = new EmptyComponent;
 
 
   onDrop(event: CdkDragDrop<IComponent[]>) {
@@ -25,6 +27,7 @@ export class AppComponent {
       moveItemInArray(event.container.data,
         event.previousIndex,
         event.currentIndex);
+        this.selectedComponent = event.container.data[event.currentIndex]
     } else {
       let tmpComponent: IComponent;
       switch (event.previousContainer.data[event.previousIndex]["typeObj"]) {
@@ -41,6 +44,7 @@ export class AppComponent {
           tmpComponent = new InputComponent;
           break;
       }
+      this.selectedComponent = tmpComponent;
       this.canvasComponent.splice(event.currentIndex, 0, tmpComponent);
     }
   }
