@@ -5,6 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PaletteComponent } from './palette/palette.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+import { ButtonModule } from './component/button/button.module';
+import { LabelModule } from './component/label/label.module';
+import { TextAreaModule } from './component/textarea/textarea.module';
+import { InputModule } from './component/input/input.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +20,12 @@ import { PaletteComponent } from './palette/palette.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DragDropModule,
+    ButtonModule,
+    LabelModule,
+    TextAreaModule,
+    InputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
