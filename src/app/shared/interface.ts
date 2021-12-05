@@ -1,5 +1,6 @@
 export interface IComponent {
   initProperty: IProperty;
+  get htmlCode(): string;
 }
 
 export interface IProperty {
@@ -9,5 +10,4 @@ export interface IProperty {
   style: string;
   typeObj: string;
   type: string;
-
 }

@@ -14,7 +14,7 @@ export class InputComponent implements IComponent {
     typeObj: "input",
     type: "",
     style: "width: 100px",
-    class: ""
+    class: "",
   };
 
   private _property: IProperty;
@@ -43,20 +43,12 @@ export class InputComponent implements IComponent {
     this.property.value = event.target.value
   }
 
-  // get inputValue(): string {
-  //   if (this.property) {
-  //     return this.property.value;
-  //   } else {
-  //     return "input";
-  //   }
-  // }
-
-  // set inputValue(value: string) {
-  //   if (this.property) {
-  //     this.property.value = value;
-  //   } else {
-  //     this.initProperty.value = value
-  //   }
-  // }
+  get htmlCode(): string {
+    return "<input id=\"" + this.property.id + "\" "
+    + "type=\"" + this.property.type + "\" "
+    + "style=\"" + this.property.style + "\" "
+    + "value=\"" + this.property.value + "\">"
+    + "</input>";
+  }
 
 }

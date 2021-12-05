@@ -12,6 +12,7 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <div class="content" role="main">
   <!-- PALETTE SECTION -->
 
@@ -20,7 +21,7 @@
     <button class="accordion palette-item">Link</button>
     <button class="accordion palette-item">Header</button>
     <button class="accordion palette-item">Paragraph</button>
-    <button class="accordion palette-item" (click)="addComponentHandler('label')">Label</button>
+    <button class="accordion palette-item" type="button" (click)="addComponentHandler('label')">Label</button>
     <button class="accordion palette-item" (click)="createButton()">
       Button
     </button>
@@ -33,6 +34,7 @@
     <button class="accordion palette-item">Modal</button>
     <button class="accordion palette-item" (click)="createPopup()">Popup</button>
     <button class="accordion palette-item">Image</button>
+    <button class="accordion palette-item" (click)="addComponentHandler('br')">Break Element</button>
 
     <!-- <ul class="list-group">
       <li class="list-group-item palette-item" (click)="createButton()">
@@ -46,9 +48,19 @@
   <!-- CANVAS SECTION -->
 
   <div id="canvas-container">
-    <div id="canvas" #canvas>
-      <div [style]="component.initProperty.style" *ngFor="let component of canvasComponent"  [ngSwitch]="component.initProperty.typeObj" (click)="clickHandler(component)" >
+    <div id="canvas" #canvas
+    cdkDropList
+    #paletteList="cdkDropList"
+    [cdkDropListData]="canvasComponent"
+    [cdkDropListConnectedTo]="[paletteList]"
+    (cdkDropListDropped)="onDrop($event)">
+      <div [ngClass]="component.initProperty.class"
+        *ngFor="let component of canvasComponent"
+        [ngSwitch]="component.initProperty.typeObj"
+        (click)="clickHandler(component)"
+        cdkDrag>
         <app-label [property]="component.initProperty" *ngIf="component.initProperty.typeObj == 'label'"></app-label>
+        <app-br *ngSwitchCase="'br'"></app-br>
         <app-input [property]="component.initProperty" *ngSwitchCase="'input'"></app-input>
       </div>
     </div>
@@ -58,7 +70,9 @@
 
   <div id="code-container">
     <app-property [property]="selectedComponent.initProperty"></app-property>
-    <code><!-- INSERT CODE HERE VIA INTERPOLATION --></code>
+    <code [innerText]="htmlCode">
+      <!-- INSERT CODE HERE VIA INTERPOLATION -->
+    </code>
   </div>
 </div>
 

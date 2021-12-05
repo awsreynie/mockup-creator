@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LabelModule } from './component/label/label.module';
 import { InputModule } from './component/input/input.module';
 import { PropertyModule } from './property/property.module';
+import { BrModule } from './component/br/br.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { PropertyModule } from './property/property.module';
     NgbModule,
     LabelModule,
     InputModule,
-    PropertyModule
+    BrModule,
+    PropertyModule,
+    DragDropModule
   ],
   providers: [DragDropModule],
   bootstrap: [AppComponent],

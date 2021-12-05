@@ -21,6 +21,14 @@
   padding: 10px;
 }
 
+.inline {
+  display: inline-flex;
+}
+
+.border-solid {
+  border: 1px solid;
+}
+
 /********************** CANVAS CSS ********************/
 
 #canvas-container {

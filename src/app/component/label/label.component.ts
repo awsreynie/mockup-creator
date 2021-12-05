@@ -9,35 +9,39 @@ import { IComponent, IProperty } from "../../shared/interface";
 })
 
 export class LabelComponent implements IComponent {
+  private _id = "label" + Variables.getLabelId();
+  private _style = "width: 100px";
+  private _value = "label";
+
   initProperty: IProperty = {
-    id: "label" + Variables.getLabelId(),
-    value: "label",
+    id: this._id,
+    value: this._value,
     typeObj: "label",
     type: "",
-    style: "width: 100px",
-    class: ""
+    style: this._style,
+    class: "",
   };
 
-  private _property: IProperty;
-
   @Input() get property(): IProperty {
-    return this._property;
+    return this.initProperty;
   }
 
   set property(value: IProperty) {
+    // console.log("set property");
     if(value) {
-      this._property = value;
-    } else {
-      this._property = this.initProperty;
+      this.initProperty = value;
     }
   }
 
+  get htmlCode(): string {
+    return "<label id=\"" + this.property.id + "\" "
+    + "type=\"" + this.property.type + "\" "
+    + "style=\"" + this.property.style + "\">"
+    + this.property.value + "</label>";
+  }
+
   constructor() {
-    if(this.property) {
-      this._property = this.property;
-    } else {
-      this._property = this.initProperty;
-    }
+     // console.log("constructor");  constructor is called twice :(
   }
 
 }

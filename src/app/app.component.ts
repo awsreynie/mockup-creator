@@ -1,10 +1,13 @@
 import {
+  CdkDragDrop,
   DragDrop,
   DragDropConfig,
   DragDropModule,
   DragRef,
   DragRefConfig,
+  moveItemInArray,
 } from '@angular/cdk/drag-drop';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import {
   Component,
   ElementRef,
@@ -12,6 +15,7 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
+import { BrComponent } from './component/br/br.component';
 import { InputComponent } from './component/input/input.component';
 import { LabelComponent } from './component/label/label.component';
 import { EmptyComponent } from './shared/classes';
@@ -26,6 +30,9 @@ export class AppComponent implements OnInit {
   title = 'mockup-creator';
   canvasComponent: IComponent[] = [];
   selectedComponent: IComponent = new EmptyComponent;
+  style = "";
+  private _htmlStart = "<!doctype html>\n<html lang=\"en\">";
+  private _htmlEnd = "</html>";
 
   @ViewChild('canvas') canvas!: ElementRef;
 
@@ -41,6 +48,9 @@ export class AppComponent implements OnInit {
       case "label":
         tmpComponent = new LabelComponent;
         break;
+      case "br":
+        tmpComponent = new BrComponent;
+        break;
       default:
         tmpComponent = new InputComponent;
         break;
@@ -50,6 +60,30 @@ export class AppComponent implements OnInit {
 
   clickHandler(component: IComponent) {
     this.selectedComponent = component;
+  }
+
+  onDrop(event: CdkDragDrop<IComponent[]>) {
+
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+        this.selectedComponent = event.container.data[event.currentIndex]
+    }
+  }
+
+  private htmlBody(): string {
+    let tmpHtmlBody = "\n";
+
+    this.canvasComponent.forEach((value, _) => {
+      console.log(value)
+      tmpHtmlBody = tmpHtmlBody + value.htmlCode + "\n";
+    });
+    return tmpHtmlBody;
+  }
+
+  get htmlCode(): string {
+    return this._htmlStart + "\n" + this.htmlBody() + "\n" + this._htmlEnd;
   }
 
   createButton() {

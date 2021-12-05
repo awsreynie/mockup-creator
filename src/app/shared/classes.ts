@@ -30,6 +30,10 @@ export class EmptyComponent implements IComponent {
     typeObj: "",
     type: "",
     style: "",
-    class: ""
+    class: "",
   };
+
+  get htmlCode() {
+    return "";
+  }
 }
