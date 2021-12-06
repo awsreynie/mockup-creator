@@ -22,18 +22,3 @@ export class Variables {
     return this._inputId++;
   }
 }
-
-export class EmptyComponent implements IComponent {
-  initProperty: IProperty = {
-    id: "",
-    value: "",
-    typeObj: "",
-    type: "",
-    style: "",
-    class: "",
-  };
-
-  get htmlCode() {
-    return "";
-  }
-}

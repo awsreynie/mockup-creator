@@ -15,7 +15,6 @@ export class PropertyComponent implements OnInit {
   }
 
   set property(value: IProperty) {
-    console.log("property")
     if(value) {
       this._property = value;
     }
@@ -24,7 +23,6 @@ export class PropertyComponent implements OnInit {
   // @Output() propertyChange = new EventEmitter<IComponent>();
 
   constructor() {
-    console.log("constructor")
     this._property = this.property;
   }
 

@@ -14,6 +14,8 @@ import { LabelModule } from './component/label/label.module';
 import { InputModule } from './component/input/input.module';
 import { PropertyModule } from './property/property.module';
 import { BrModule } from './component/br/br.module';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from './component/button/button.module';
 
 @NgModule({
   declarations: [
@@ -27,10 +29,12 @@ import { BrModule } from './component/br/br.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
+    FormsModule,
     LabelModule,
     InputModule,
     BrModule,
     PropertyModule,
+    ButtonModule,
     DragDropModule
   ],
   providers: [DragDropModule],

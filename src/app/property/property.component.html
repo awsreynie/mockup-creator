@@ -1,24 +1,38 @@
 <div>
   <table border="1" [cellSpacing]="1">
+    <tr><th colspan="2">Component Property</th></tr>
     <tr>
-      <td style="background-color: white;"><label>id</label></td>
+      <th><label>id</label></th>
       <td><input type="text" [id] ="property.id" [value]="property.id" (keyup)="idChangeHandler($event)"></td>
     </tr>
     <tr>
-      <td style="background-color: white;"><label>value</label></td>
+      <th><label>value</label></th>
       <td><input type="text" [value]="property.value" (keyup)="valueChangeHandler($event)"></td>
     </tr>
     <tr>
-      <td style="background-color: white;"><label>type</label></td>
+      <th><label>type</label></th>
       <td><input type="text" [value]="property.type" (keyup)="typeChangeHandler($event)"></td>
     </tr>
     <tr>
-      <td style="background-color: white;"><label>style</label></td>
-      <td><input type="text" [value]="property.style" (keyup)="styleChangeHandler($event)"></td>
+      <th><label>class</label></th>
+      <td><input type="text" [value]="property.class" (keyup)="classChangeHandler($event)"></td>
     </tr>
     <tr>
-      <td style="background-color: white;"><label>class</label></td>
-      <td><input type="text" [value]="property.class" (keyup)="classChangeHandler($event)"></td>
+      <th><label>style</label></th>
+      <td><textarea name="style" id="taID" [value]="property.style" cols="21" rows="5" (keyup)="styleChangeHandler($event)"></textarea></td>
     </tr>
   </table>
 </div>
+
+<style>
+  th {
+    background-color: thistle;
+  }
+  tr {
+    background-color: white;
+    border: solid;
+  }
+  input, textarea {
+    border: none;
+  }
+</style>

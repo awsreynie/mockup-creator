@@ -4,19 +4,19 @@ import { Variables } from "../../shared/classes";
 import { IComponent, IProperty } from "../../shared/interface";
 
 @Component({
-  selector: "app-label",
-  template: `<label [id]="property.id" type="property.type" [style]="property.style">{{ property.value }}</label>`
+  selector: "app-button",
+  template: `<button [id]="property.id" [style]="property.style" [type]="property.type">{{ property.value }}</button>`
 })
 
-export class LabelComponent implements IComponent {
-  private _id = "label" + Variables.getLabelId();
-  private _style = "width: 100px";
-  private _value = "label";
+export class ButtonComponent implements IComponent {
+  private _id = "button" + Variables.getButtonId();
+  private _style = "width: auto";
+  private _value = "button";
 
   initProperty: IProperty = {
     id: this._id,
     value: this._value,
-    typeObj: "label",
+    typeObj: "button",
     type: "",
     style: this._style,
     class: "",
@@ -34,9 +34,12 @@ export class LabelComponent implements IComponent {
   }
 
   get htmlCode(): string {
-    let tmpHtmlCode = "<label";
+    let tmpHtmlCode = "<button";
     if (this.property.id.trim().length > 0)
       tmpHtmlCode += " id=\"" + this.property.id + "\"";
+
+    if (this.property.type.trim().length > 0)
+      tmpHtmlCode += " type=\"" + this.property.type + "\"";
 
     if (this.property.class.trim().length > 0)
       tmpHtmlCode += " class=\"" + this.property.class + "\"";
@@ -44,7 +47,7 @@ export class LabelComponent implements IComponent {
     if (this.property.style.trim().length > 0)
       tmpHtmlCode += " style=\"" + this.property.style + "\"";
 
-    tmpHtmlCode += ">" + this.property.value + "</label>";
+    tmpHtmlCode += ">" + this.property.value + "</button>";
 
     return tmpHtmlCode;
   }

@@ -16,10 +16,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { BrComponent } from './component/br/br.component';
+import { ButtonComponent } from './component/button/button.component';
 import { InputComponent } from './component/input/input.component';
 import { LabelComponent } from './component/label/label.component';
-import { EmptyComponent } from './shared/classes';
-import { IComponent } from './shared/interface';
+import { IComponent, IProperty } from './shared/interface';
 
 @Component({
   selector: 'app-root',
@@ -29,8 +29,17 @@ import { IComponent } from './shared/interface';
 export class AppComponent implements OnInit {
   title = 'mockup-creator';
   canvasComponent: IComponent[] = [];
-  selectedComponent: IComponent = new EmptyComponent;
-  style = "";
+  selectedProperty: IProperty = {
+    id: "",
+    value: "",
+    typeObj: "",
+    type: "",
+    style: "",
+    class: "",
+  };
+  private _styleStart = "<style>";
+  private _styleEnd = "</style>";
+  private _styleBody = "";
   private _htmlStart = "<!doctype html>\n<html lang=\"en\">";
   private _htmlEnd = "</html>";
 
@@ -42,6 +51,18 @@ export class AppComponent implements OnInit {
     /* throw new Error('Method not implemented.'); */
   }
 
+  get style(): string {
+    return this._styleBody;
+  }
+
+  set style(value: string) {
+    this._styleBody = value;
+  }
+
+  styleHandler(event: any) {
+    this._styleBody = event.target.value;
+  }
+
   addComponentHandler(component: string) {
     let tmpComponent: IComponent;
     switch(component) {
@@ -51,6 +72,9 @@ export class AppComponent implements OnInit {
       case "br":
         tmpComponent = new BrComponent;
         break;
+      case "button":
+        tmpComponent = new ButtonComponent;
+        break;
       default:
         tmpComponent = new InputComponent;
         break;
@@ -59,16 +83,15 @@ export class AppComponent implements OnInit {
   }
 
   clickHandler(component: IComponent) {
-    this.selectedComponent = component;
+    this.selectedProperty = component.initProperty;
   }
 
   onDrop(event: CdkDragDrop<IComponent[]>) {
-
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data,
         event.previousIndex,
         event.currentIndex);
-        this.selectedComponent = event.container.data[event.currentIndex]
+        this.selectedProperty = event.container.data[event.currentIndex].initProperty;
     }
   }
 
@@ -76,14 +99,18 @@ export class AppComponent implements OnInit {
     let tmpHtmlBody = "\n";
 
     this.canvasComponent.forEach((value, _) => {
-      console.log(value)
       tmpHtmlBody = tmpHtmlBody + value.htmlCode + "\n";
     });
     return tmpHtmlBody;
   }
 
   get htmlCode(): string {
-    return this._htmlStart + "\n" + this.htmlBody() + "\n" + this._htmlEnd;
+    return this._htmlStart
+    + "\n" + this.htmlBody()
+    + "\n" + this._htmlEnd
+    + "\n" + this._styleStart
+    + "\n" + this.style
+    + "\n" + this._styleEnd;
   }
 
   createButton() {

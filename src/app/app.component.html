@@ -21,8 +21,8 @@
     <button class="accordion palette-item">Link</button>
     <button class="accordion palette-item">Header</button>
     <button class="accordion palette-item">Paragraph</button>
-    <button class="accordion palette-item" type="button" (click)="addComponentHandler('label')">Label</button>
-    <button class="accordion palette-item" (click)="createButton()">
+    <button class="accordion palette-item" (click)="addComponentHandler('label')">Label</button>
+    <button class="accordion palette-item" (click)="addComponentHandler('button')">
       Button
     </button>
     <button class="accordion palette-item">Dropbox</button>
@@ -62,6 +62,7 @@
         <app-label [property]="component.initProperty" *ngIf="component.initProperty.typeObj == 'label'"></app-label>
         <app-br *ngSwitchCase="'br'"></app-br>
         <app-input [property]="component.initProperty" *ngSwitchCase="'input'"></app-input>
+        <app-input [property]="component.initProperty" *ngSwitchCase="'button'"></app-input>
       </div>
     </div>
   </div>
@@ -69,7 +70,12 @@
   <!-- CODE SECTION -->
 
   <div id="code-container">
-    <app-property [property]="selectedComponent.initProperty"></app-property>
+    <app-property [property]="selectedProperty"></app-property>
+    <div style="width: 238px;">
+      <br>
+      <h3 style="background-color: white; margin: 0;">css</h3>
+      <textarea style="margin: 0" [(ngModel)]="style" cols="30" rows="5" ></textarea>
+    </div>
     <code [innerText]="htmlCode">
       <!-- INSERT CODE HERE VIA INTERPOLATION -->
     </code>

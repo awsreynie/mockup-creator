@@ -13,7 +13,7 @@ export class InputComponent implements IComponent {
     value: "input",
     typeObj: "input",
     type: "",
-    style: "width: 100px",
+    style: "width: auto",
     class: "",
   };
 
@@ -46,6 +46,7 @@ export class InputComponent implements IComponent {
   get htmlCode(): string {
     return "<input id=\"" + this.property.id + "\" "
     + "type=\"" + this.property.type + "\" "
+    + "class=\"" + this.property.class + "\" "
     + "style=\"" + this.property.style + "\" "
     + "value=\"" + this.property.value + "\">"
     + "</input>";
