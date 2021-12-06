@@ -62,7 +62,7 @@
         <app-label [property]="component.initProperty" *ngIf="component.initProperty.typeObj == 'label'"></app-label>
         <app-br *ngSwitchCase="'br'"></app-br>
         <app-input [property]="component.initProperty" *ngSwitchCase="'input'"></app-input>
-        <app-input [property]="component.initProperty" *ngSwitchCase="'button'"></app-input>
+        <app-button [property]="component.initProperty" *ngSwitchCase="'button'"></app-button>
       </div>
     </div>
   </div>
