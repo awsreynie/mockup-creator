@@ -8,12 +8,16 @@ import { IComponent, IProperty } from "../../shared/interface";
 })
 
 export class InputComponent implements IComponent {
+  private _id = "input" + Variables.getInputId();
+  private _style = "width: auto";
+  private _value = "label";
+
   initProperty: IProperty = {
-    id: "input" + Variables.getInputId(),
-    value: "input",
+    id: this._id,
+    value: this._value,
     typeObj: "input",
     type: "",
-    style: "width: auto",
+    style: this._style,
     class: "",
   };
 
@@ -44,12 +48,30 @@ export class InputComponent implements IComponent {
   }
 
   get htmlCode(): string {
-    return "<input id=\"" + this.property.id + "\" "
-    + "type=\"" + this.property.type + "\" "
-    + "class=\"" + this.property.class + "\" "
-    + "style=\"" + this.property.style + "\" "
-    + "value=\"" + this.property.value + "\">"
-    + "</input>";
+    let tmpHtmlCode = "<input";
+    if (this.property.id.trim().length > 0) {
+      tmpHtmlCode += " id=\"" + this.property.id + "\"";
+    }
+
+    if (this.property.type.trim().length > 0) {
+      tmpHtmlCode += " type=\"" + this.property.type + "\"";
+    }
+
+    if (this.property.class.trim().length > 0) {
+      tmpHtmlCode += " class=\"" + this.property.class + "\"";
+    }
+
+    if (this.property.style.trim().length > 0) {
+      tmpHtmlCode += " style=\"" + this.property.style + "\"";
+    }
+
+    if (this.property.value.trim().length > 0) {
+      tmpHtmlCode += " value=\"" + this.property.value + "\"";
+    }
+
+    tmpHtmlCode += "></input>";
+
+    return tmpHtmlCode;
   }
 
 }

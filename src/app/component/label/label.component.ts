@@ -5,12 +5,12 @@ import { IComponent, IProperty } from "../../shared/interface";
 
 @Component({
   selector: "app-label",
-  template: `<label [id]="property.id" type="property.type" [style]="property.style">{{ property.value }}</label>`
+  template: `<label [id]="property.id" [style]="property.style">{{ property.value }}</label>`
 })
 
 export class LabelComponent implements IComponent {
   private _id = "label" + Variables.getLabelId();
-  private _style = "width: 100px";
+  private _style = "width: auto";
   private _value = "label";
 
   initProperty: IProperty = {
@@ -35,14 +35,17 @@ export class LabelComponent implements IComponent {
 
   get htmlCode(): string {
     let tmpHtmlCode = "<label";
-    if (this.property.id.trim().length > 0)
+    if (this.property.id.trim().length > 0) {
       tmpHtmlCode += " id=\"" + this.property.id + "\"";
+    }
 
-    if (this.property.class.trim().length > 0)
+    if (this.property.class.trim().length > 0) {
       tmpHtmlCode += " class=\"" + this.property.class + "\"";
+    }
 
-    if (this.property.style.trim().length > 0)
+    if (this.property.style.trim().length > 0) {
       tmpHtmlCode += " style=\"" + this.property.style + "\"";
+    }
 
     tmpHtmlCode += ">" + this.property.value + "</label>";
 

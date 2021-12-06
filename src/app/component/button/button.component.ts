@@ -35,17 +35,21 @@ export class ButtonComponent implements IComponent {
 
   get htmlCode(): string {
     let tmpHtmlCode = "<button";
-    if (this.property.id.trim().length > 0)
+    if (this.property.id.trim().length > 0) {
       tmpHtmlCode += " id=\"" + this.property.id + "\"";
+    }
 
-    if (this.property.type.trim().length > 0)
+    if (this.property.type.trim().length > 0) {
       tmpHtmlCode += " type=\"" + this.property.type + "\"";
+    }
 
-    if (this.property.class.trim().length > 0)
+    if (this.property.class.trim().length > 0) {
       tmpHtmlCode += " class=\"" + this.property.class + "\"";
+    }
 
-    if (this.property.style.trim().length > 0)
+    if (this.property.style.trim().length > 0) {
       tmpHtmlCode += " style=\"" + this.property.style + "\"";
+    }
 
     tmpHtmlCode += ">" + this.property.value + "</button>";
 
