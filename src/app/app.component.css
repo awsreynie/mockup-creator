@@ -25,6 +25,11 @@
   display: inline-flex;
 }
 
+.mat-tab {
+  max-width: 1000px;
+  background-color: whitesmoke;
+}
+
 .border-solid {
   border: 1px solid;
 }

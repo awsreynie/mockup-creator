@@ -48,37 +48,42 @@
   <!-- CANVAS SECTION -->
 
   <div id="canvas-container">
-    <div id="canvas" #canvas
-    cdkDropList
-    #paletteList="cdkDropList"
-    [cdkDropListData]="canvasComponent"
-    [cdkDropListConnectedTo]="[paletteList]"
-    (cdkDropListDropped)="onDrop($event)">
-      <div [ngClass]="component.initProperty.class"
-        *ngFor="let component of canvasComponent"
-        [ngSwitch]="component.initProperty.typeObj"
-        (click)="clickHandler(component)"
-        cdkDrag>
-        <app-label [property]="component.initProperty" *ngIf="component.initProperty.typeObj == 'label'"></app-label>
-        <app-br *ngSwitchCase="'br'"></app-br>
-        <app-input [property]="component.initProperty" *ngSwitchCase="'input'"></app-input>
-        <app-input [property]="component.initProperty" *ngSwitchCase="'button'"></app-input>
-      </div>
-    </div>
+    <mat-tab-group class="mat-tab" [(selectedIndex)]="tabActive" (selectedTabChange)="onTabChangeHandler($event)" animationDuration="100ms">
+      <mat-tab [label]="tab" *ngFor="let tab of tabs">
+        <div id="canvas" #canvas
+          cdkDropList
+          #paletteList="cdkDropList"
+          [cdkDropListData]="canvasComponent"
+          [cdkDropListConnectedTo]="[paletteList]"
+          (cdkDropListDropped)="onDrop($event)">
+          <div [ngClass]="component.initProperty.class"
+            *ngFor="let component of canvasComponent"
+            [ngSwitch]="component.initProperty.typeObj"
+            (click)="clickHandler(component)"
+            cdkDrag>
+            <app-label [property]="component.initProperty" *ngIf="component.initProperty.typeObj == 'label'"></app-label>
+            <app-br *ngSwitchCase="'br'"></app-br>
+            <app-input [property]="component.initProperty" *ngSwitchCase="'input'"></app-input>
+            <app-input [property]="component.initProperty" *ngSwitchCase="'button'"></app-input>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="+"></mat-tab>
+    </mat-tab-group>
   </div>
 
   <!-- CODE SECTION -->
 
   <div id="code-container">
-    <app-property [property]="selectedProperty"></app-property>
-    <div style="width: 238px;">
-      <br>
-      <h3 style="background-color: white; margin: 0;">css</h3>
-      <textarea style="margin: 0" [(ngModel)]="style" cols="30" rows="5" ></textarea>
-    </div>
-    <code [innerText]="htmlCode">
-      <!-- INSERT CODE HERE VIA INTERPOLATION -->
-    </code>
+    <mat-tab-group class="mat-tab">
+      <mat-tab label="property"><app-property [property]="selectedProperty"></app-property></mat-tab>
+      <mat-tab label="style"><textarea style="margin: 0" [(ngModel)]="style" cols="30" rows="5" ></textarea></mat-tab>
+      <mat-tab label="source">
+        <!-- INSERT CODE HERE VIA INTERPOLATION -->
+        <code [innerText]="htmlCode"></code>
+      </mat-tab>
+      <mat-tab label="tabs"></mat-tab>
+    </mat-tab-group>
   </div>
 </div>
 

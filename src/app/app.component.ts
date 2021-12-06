@@ -28,6 +28,8 @@ import { IComponent, IProperty } from './shared/interface';
 })
 export class AppComponent implements OnInit {
   title = 'mockup-creator';
+  tabActive = 0;
+  tabs = ["first", "second"]
   canvasComponent: IComponent[] = [];
   selectedProperty: IProperty = {
     id: "",
@@ -111,6 +113,10 @@ export class AppComponent implements OnInit {
     + "\n" + this._styleStart
     + "\n" + this.style
     + "\n" + this._styleEnd;
+  }
+
+  onTabChangeHandler(event: any) {
+    console.log(this.tabActive)
   }
 
   createButton() {

@@ -7,6 +7,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PaletteComponent } from './palette/palette.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -30,6 +31,7 @@ import { ButtonModule } from './component/button/button.module';
     BrowserAnimationsModule,
     NgbModule,
     FormsModule,
+    MatTabsModule,
     LabelModule,
     InputModule,
     BrModule,
