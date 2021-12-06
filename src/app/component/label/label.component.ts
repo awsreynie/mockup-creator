@@ -20,6 +20,8 @@ export class LabelComponent implements IComponent {
     type: "",
     style: this._style,
     class: "",
+    targetLink: "",
+    imgSrc: ""
   };
 
   @Input() get property(): IProperty {

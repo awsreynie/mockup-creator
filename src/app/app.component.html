@@ -48,41 +48,50 @@
   <!-- CANVAS SECTION -->
 
   <div id="canvas-container">
-    <mat-tab-group class="mat-tab" [(selectedIndex)]="tabActive" (selectedTabChange)="onTabChangeHandler($event)" animationDuration="100ms">
-      <mat-tab [label]="tab" *ngFor="let tab of tabs">
-        <div id="canvas" #canvas
-          cdkDropList
-          #paletteList="cdkDropList"
-          [cdkDropListData]="canvasComponent"
-          [cdkDropListConnectedTo]="[paletteList]"
-          (cdkDropListDropped)="onDrop($event)">
-          <div [ngClass]="component.initProperty.class"
-            *ngFor="let component of canvasComponent"
-            [ngSwitch]="component.initProperty.typeObj"
-            (click)="clickHandler(component)"
-            cdkDrag>
-            <app-label [property]="component.initProperty" *ngIf="component.initProperty.typeObj == 'label'"></app-label>
-            <app-br *ngSwitchCase="'br'"></app-br>
-            <app-input [property]="component.initProperty" *ngSwitchCase="'input'"></app-input>
-            <app-input [property]="component.initProperty" *ngSwitchCase="'button'"></app-input>
-          </div>
-        </div>
-      </mat-tab>
-      <mat-tab label="+"></mat-tab>
-    </mat-tab-group>
+    <nav mat-tab-nav-bar [backgroundColor]="background">
+      <a mat-tab-link *ngFor="let tab of mapTabs | keyvalue"
+         (click)="onTabChangeHandler(tab.key)"
+         [active]="tabActive == tab.key"> {{tab.value}} </a>
+    </nav>
+    <div id="canvas" #canvas
+      cdkDropList
+      #paletteList="cdkDropList"
+      [cdkDropListData]="canvasComponent"
+      [cdkDropListConnectedTo]="[paletteList]"
+      (cdkDropListDropped)="onDrop($event)">
+      <div [ngClass]="component.initProperty.class"
+        *ngFor="let component of canvasComponent"
+        [ngSwitch]="component.initProperty.typeObj"
+        (click)="clickHandler(component)"
+        cdkDrag>
+        <app-label [property]="component.initProperty" *ngIf="component.initProperty.typeObj == 'label'"></app-label>
+        <app-br *ngSwitchCase="'br'"></app-br>
+        <app-input [property]="component.initProperty" *ngSwitchCase="'input'"></app-input>
+        <app-button [property]="component.initProperty" *ngSwitchCase="'button'" (click)="selectTabHandler(component.initProperty.targetLink)"></app-button>
+      </div>
+    </div>
   </div>
 
   <!-- CODE SECTION -->
 
   <div id="code-container">
     <mat-tab-group class="mat-tab">
+      <mat-tab label="tabs">
+        <table border="1" cellSpacing="1">
+          <tr><td colspan="3"><button id="tabButton" (click)="addTabHandler()">Add Tab</button></td></tr>
+          <tr *ngFor="let tab of mapTabs | keyvalue">
+            <th><label>Tab Name</label></th>
+            <td><input type="text" [value]="tab.value" (change)="tabNameChangeHandler(tab.key, $event)"></td>
+            <td><button [id]="tab.key" (click)="tabDeleteHandler(tab.key)">Delete</button></td>
+          </tr>
+        </table>
+      </mat-tab>
       <mat-tab label="property"><app-property [property]="selectedProperty"></app-property></mat-tab>
       <mat-tab label="style"><textarea style="margin: 0" [(ngModel)]="style" cols="30" rows="5" ></textarea></mat-tab>
       <mat-tab label="source">
         <!-- INSERT CODE HERE VIA INTERPOLATION -->
         <code [innerText]="htmlCode"></code>
       </mat-tab>
-      <mat-tab label="tabs"></mat-tab>
     </mat-tab-group>
   </div>
 </div>

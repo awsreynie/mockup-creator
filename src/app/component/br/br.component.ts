@@ -14,6 +14,8 @@ export class BrComponent implements IComponent {
     type: "",
     style: "",
     class: "",
+    targetLink: "",
+    imgSrc: ""
   };
 
   private _property: IProperty;

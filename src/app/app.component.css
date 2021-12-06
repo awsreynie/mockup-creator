@@ -3,6 +3,11 @@
   flex-direction: row;
 }
 
+th, tr {
+  background-color: thistle;
+  border: solid;
+}
+
 /********************** PALETTE CSS ********************/
 
 #palette-container {

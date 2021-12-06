@@ -10,7 +10,7 @@ import { IComponent, IProperty } from "../../shared/interface";
 export class InputComponent implements IComponent {
   private _id = "input" + Variables.getInputId();
   private _style = "width: auto";
-  private _value = "label";
+  private _value = "input";
 
   initProperty: IProperty = {
     id: this._id,
@@ -19,6 +19,8 @@ export class InputComponent implements IComponent {
     type: "",
     style: this._style,
     class: "",
+    targetLink: "",
+    imgSrc: ""
   };
 
   private _property: IProperty;

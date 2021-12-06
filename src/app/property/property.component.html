@@ -1,5 +1,5 @@
 <div>
-  <table border="1" [cellSpacing]="1">
+  <table border="1" cellSpacing="1">
     <tr><th colspan="2">Component Property</th></tr>
     <tr>
       <th><label>id</label></th>
@@ -12,6 +12,14 @@
     <tr>
       <th><label>type</label></th>
       <td><input type="text" [value]="property.type" (keyup)="typeChangeHandler($event)"></td>
+    </tr>
+    <tr>
+      <th><label>targetLink</label></th>
+      <td><input type="text" [value]="property.targetLink" (keyup)="targetLinkChangeHandler($event)"></td>
+    </tr>
+    <tr>
+      <th><label>imgSrc</label></th>
+      <td><input type="text" [value]="property.imgSrc" (keyup)="imgSrcChangeHandler($event)"></td>
     </tr>
     <tr>
       <th><label>class</label></th>

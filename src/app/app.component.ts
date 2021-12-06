@@ -8,6 +8,7 @@ import {
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { ThemePalette } from '@angular/material/core';
 import {
   Component,
   ElementRef,
@@ -31,14 +32,19 @@ export class AppComponent implements OnInit {
   tabActive = 0;
   tabs = ["first", "second"]
   canvasComponent: IComponent[] = [];
-  selectedProperty: IProperty = {
+  mapCanvasComponent: Map<number, IComponent[]> = new Map<number, IComponent[]>();
+  mapTabs: Map<number, string> = new Map<number, string>();
+  private _selectedProperty: IProperty = {
     id: "",
     value: "",
     typeObj: "",
     type: "",
     style: "",
     class: "",
+    targetLink: "",
+    imgSrc: ""
   };
+  selectedProperty = this._selectedProperty;
   private _styleStart = "<style>";
   private _styleEnd = "</style>";
   private _styleBody = "";
@@ -46,8 +52,16 @@ export class AppComponent implements OnInit {
   private _htmlEnd = "</html>";
 
   @ViewChild('canvas') canvas!: ElementRef;
+  background: ThemePalette = undefined;
 
-  constructor(private renderer: Renderer2, private drag: DragDrop) {}
+  toggleBackground() {
+    this.background = this.background ? undefined : 'primary';
+  }
+
+  constructor(private renderer: Renderer2, private drag: DragDrop) {
+    this.mapTabs.set(0, "Main");
+    this.mapCanvasComponent.set(0, []);
+  }
 
   ngOnInit(): void {
     /* throw new Error('Method not implemented.'); */
@@ -81,7 +95,9 @@ export class AppComponent implements OnInit {
         tmpComponent = new InputComponent;
         break;
     }
-    this.canvasComponent.push(tmpComponent)
+    //this.canvasComponent.push(tmpComponent)
+    this.mapCanvasComponent.get(this.tabActive)!.push(tmpComponent);
+    this.canvasComponent = this.mapCanvasComponent.get(this.tabActive)!!;
   }
 
   clickHandler(component: IComponent) {
@@ -115,8 +131,33 @@ export class AppComponent implements OnInit {
     + "\n" + this._styleEnd;
   }
 
-  onTabChangeHandler(event: any) {
-    console.log(this.tabActive)
+  onTabChangeHandler(index: number) {
+    console.log(index);
+    this.tabActive = index;
+    this.canvasComponent = this.mapCanvasComponent.get(this.tabActive)!!;
+  }
+
+  addTabHandler() {
+    this.mapCanvasComponent.set(this.mapTabs.size, []);
+    this.mapTabs.set(this.mapTabs.size, "New Tab")
+  }
+
+  tabDeleteHandler(index: number) {
+    this.mapTabs.delete(index);
+    this.mapCanvasComponent.delete(index);
+  }
+
+  tabNameChangeHandler(index: number, event: any) {
+    this.mapTabs.set(index, event.target.value)
+  }
+
+  selectTabHandler(targetLink: string) {
+    this.mapTabs.forEach((value, key) => {
+      if (value == targetLink) {
+        this.tabActive = key;
+        this.canvasComponent = this.mapCanvasComponent.get(key)!!;
+      }
+    });
   }
 
   createButton() {

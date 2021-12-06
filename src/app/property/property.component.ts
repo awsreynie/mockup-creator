@@ -41,6 +41,14 @@ export class PropertyComponent implements OnInit {
     this.property.type = event.target.value;
   }
 
+  targetLinkChangeHandler(event: any) {
+    this.property.targetLink = event.target.value;
+  }
+
+  imgSrcChangeHandler(event: any) {
+    this.property.imgSrc = event.target.value;
+  }
+
   styleChangeHandler(event: any) {
     this.property.style = event.target.value;
   }
