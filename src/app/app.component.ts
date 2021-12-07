@@ -1,19 +1,11 @@
 import {
   CdkDragDrop,
-  DragDrop,
-  DragDropConfig,
-  DragDropModule,
-  DragRef,
-  DragRefConfig,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
-import { ThemePalette } from '@angular/material/core';
 import {
   Component,
   ElementRef,
   OnInit,
-  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { BrComponent } from './component/br/br.component';
@@ -28,12 +20,13 @@ import { IComponent, IProperty } from './shared/interface';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'mockup-creator';
-  tabActive = 0;
-  tabs = ["first", "second"]
-  canvasComponent: IComponent[] = [];
-  mapCanvasComponent: Map<number, IComponent[]> = new Map<number, IComponent[]>();
-  mapTabs: Map<number, string> = new Map<number, string>();
+  private _tabCounter = 1;
+  private _mapKey = 1;
+  private _styleStart = "<style>";
+  private _styleEnd = "</style>";
+  private _styleBody = "";
+  private _htmlStart = "<!doctype html>\n<html lang=\"en\">";
+  private _htmlEnd = "</html>";
   private _selectedProperty: IProperty = {
     id: "",
     value: "",
@@ -42,23 +35,19 @@ export class AppComponent implements OnInit {
     style: "",
     class: "",
     targetLink: "",
-    imgSrc: ""
+    imgSrc: "",
+    dataSrc: ""
   };
+  title = 'mockup-creator';
+  tabActive = 0;
+  canvasComponent: IComponent[] = [];
+  mapCanvasComponent: Map<number, IComponent[]> = new Map<number, IComponent[]>();
+  mapTabs: Map<number, string> = new Map<number, string>();
   selectedProperty = this._selectedProperty;
-  private _styleStart = "<style>";
-  private _styleEnd = "</style>";
-  private _styleBody = "";
-  private _htmlStart = "<!doctype html>\n<html lang=\"en\">";
-  private _htmlEnd = "</html>";
 
   @ViewChild('canvas') canvas!: ElementRef;
-  background: ThemePalette = undefined;
 
-  toggleBackground() {
-    this.background = this.background ? undefined : 'primary';
-  }
-
-  constructor(private renderer: Renderer2, private drag: DragDrop) {
+  constructor() {
     this.mapTabs.set(0, "Main");
     this.mapCanvasComponent.set(0, []);
   }
@@ -95,7 +84,6 @@ export class AppComponent implements OnInit {
         tmpComponent = new InputComponent;
         break;
     }
-    //this.canvasComponent.push(tmpComponent)
     this.mapCanvasComponent.get(this.tabActive)!.push(tmpComponent);
     this.canvasComponent = this.mapCanvasComponent.get(this.tabActive)!!;
   }
@@ -132,72 +120,71 @@ export class AppComponent implements OnInit {
   }
 
   onTabChangeHandler(index: number) {
-    console.log(index);
     this.tabActive = index;
+    this.selectedProperty = this._selectedProperty;
     this.canvasComponent = this.mapCanvasComponent.get(this.tabActive)!!;
   }
 
   addTabHandler() {
-    this.mapCanvasComponent.set(this.mapTabs.size, []);
-    this.mapTabs.set(this.mapTabs.size, "New Tab")
+    this.mapCanvasComponent.set(this._mapKey, []);
+    this.mapTabs.set(this._mapKey++, "New Tab" + this._tabCounter++)
+
+    if(this.mapTabs.size == 1) {
+      this.selectFirstTab()
+    }
   }
 
   tabDeleteHandler(index: number) {
     this.mapTabs.delete(index);
     this.mapCanvasComponent.delete(index);
+    if (this.mapTabs.size == 0) {
+      this.tabActive = -1;
+      this.canvasComponent = [];
+      this.selectedProperty = this._selectedProperty;
+    } else if(index == this.tabActive) {
+      this.selectFirstTab()
+    }
   }
 
   tabNameChangeHandler(index: number, event: any) {
     this.mapTabs.set(index, event.target.value)
   }
 
-  selectTabHandler(targetLink: string) {
+  selectTargetLinkHandler(targetLink: string) {
+    let tmpKey = this.tabActive;
     this.mapTabs.forEach((value, key) => {
       if (value == targetLink) {
         this.tabActive = key;
         this.canvasComponent = this.mapCanvasComponent.get(key)!!;
+        this.selectedProperty = this._selectedProperty;
+        this.loadDataToTab(tmpKey)
+        return;
       }
     });
   }
 
-  createButton() {
-    const newButton = this.renderer.createElement('button'); //create dom element
-
-    let ref = this.drag.createDrag(newButton); //make the element draggable with createDrag, then store the reference to ref
-
-    ref.withBoundaryElement(this.canvas); //set the draggable area to only be the canvas
-
-    const text = this.renderer.createText('BUTTON'); //add text to button
-
-    this.renderer.setProperty(newButton, 'type', 'button'); //add type attribute to button
-
-    this.renderer.addClass(newButton, 'btn-primary'); //add css class to the button
-
-    this.renderer.appendChild(newButton, text); //append the text into the button tag
-
-    this.renderer.appendChild(this.canvas.nativeElement, newButton); //append the button to the canvas div
+  private selectFirstTab() {
+    this.tabActive = this.mapTabs.keys().next().value;
+    this.canvasComponent = this.mapCanvasComponent.get(this.tabActive)!!;
+    this.selectedProperty = this._selectedProperty;
   }
 
-  createTextbox() {
-    const newTextbox = this.renderer.createElement('textarea');
-    let ref = this.drag.createDrag(newTextbox);
-    ref.withBoundaryElement(this.canvas);
-    this.renderer.setProperty(newTextbox, 'placeholder', 'Insert text here...');
-    this.renderer.addClass(newTextbox, 'textarea');
-    this.renderer.appendChild(this.canvas.nativeElement, newTextbox);
+  private loadDataToTab(dataIndexSource: number) {
+    this.canvasComponent.forEach(data => {
+      if (data.initProperty.dataSrc.trim().length > 0) {
+        data.initProperty.value = this.getTargetData(dataIndexSource, data.initProperty.dataSrc);
+      }
+    });
   }
 
-  createPopup() {
-    const newPopup = this.renderer.createElement('button');
-    const text = this.renderer.createText("Popup");
-    let ref = this.drag.createDrag(newPopup);
-    ref.withBoundaryElement(this.canvas);
-    this.renderer.setProperty(newPopup, 'type', 'button');
-    this.renderer.addClass(newPopup, 'popup');
-    this.renderer.setProperty(newPopup, 'data-toggle', "popover");
-    this.renderer.setProperty(newPopup, 'data-content', "This is a popup");
-    this.renderer.appendChild(newPopup, text);
-    this.renderer.appendChild(this.canvas.nativeElement, newPopup);
-    console.log(newPopup);
+  private getTargetData(key: number, targetData: string) {
+    let value = ""
+    this.mapCanvasComponent.get(key)?.forEach(data => {
+      if (data.initProperty.id === targetData) {
+        value = data.initProperty.value;
+        return;
+      }
+    });
+    return value;
   }
 }

@@ -21,7 +21,8 @@ export class ButtonComponent implements IComponent {
     style: this._style,
     class: "",
     targetLink: "",
-    imgSrc: ""
+    imgSrc: "",
+    dataSrc: ""
   };
 
   @Input() get property(): IProperty {

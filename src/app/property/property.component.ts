@@ -49,6 +49,10 @@ export class PropertyComponent implements OnInit {
     this.property.imgSrc = event.target.value;
   }
 
+  dataSrcChangeHandler(event: any) {
+    this.property.dataSrc = event.target.value;
+  }
+
   styleChangeHandler(event: any) {
     this.property.style = event.target.value;
   }

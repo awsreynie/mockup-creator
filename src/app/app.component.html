@@ -29,10 +29,10 @@
     <button class="accordion palette-item">Checkbox</button>
     <button class="accordion palette-item">Radio</button>
     <button class="accordion palette-item" (click)="addComponentHandler('input')">Input Field</button>
-    <button class="accordion palette-item" (click)="createTextbox()">Textbox</button>
+    <button class="accordion palette-item">Textbox</button>
     <button class="accordion palette-item">Date Picker</button>
     <button class="accordion palette-item">Modal</button>
-    <button class="accordion palette-item" (click)="createPopup()">Popup</button>
+    <button class="accordion palette-item">Popup</button>
     <button class="accordion palette-item">Image</button>
     <button class="accordion palette-item" (click)="addComponentHandler('br')">Break Element</button>
 
@@ -48,12 +48,12 @@
   <!-- CANVAS SECTION -->
 
   <div id="canvas-container">
-    <nav mat-tab-nav-bar [backgroundColor]="background">
+    <nav mat-tab-nav-bar>
       <a mat-tab-link *ngFor="let tab of mapTabs | keyvalue"
          (click)="onTabChangeHandler(tab.key)"
          [active]="tabActive == tab.key"> {{tab.value}} </a>
     </nav>
-    <div id="canvas" #canvas
+    <div id="canvas" #canvas *ngIf="mapTabs.size > 0"
       cdkDropList
       #paletteList="cdkDropList"
       [cdkDropListData]="canvasComponent"
@@ -67,7 +67,7 @@
         <app-label [property]="component.initProperty" *ngIf="component.initProperty.typeObj == 'label'"></app-label>
         <app-br *ngSwitchCase="'br'"></app-br>
         <app-input [property]="component.initProperty" *ngSwitchCase="'input'"></app-input>
-        <app-button [property]="component.initProperty" *ngSwitchCase="'button'" (click)="selectTabHandler(component.initProperty.targetLink)"></app-button>
+        <app-button [property]="component.initProperty" *ngSwitchCase="'button'" (click)="selectTargetLinkHandler(component.initProperty.targetLink)"></app-button>
       </div>
     </div>
   </div>

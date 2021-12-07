@@ -10,7 +10,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LabelModule } from './component/label/label.module';
 import { InputModule } from './component/input/input.module';
 import { PropertyModule } from './property/property.module';
@@ -29,7 +28,6 @@ import { ButtonModule } from './component/button/button.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgbModule,
     FormsModule,
     MatTabsModule,
     LabelModule,

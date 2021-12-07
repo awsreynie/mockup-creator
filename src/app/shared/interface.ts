@@ -12,4 +12,5 @@ export interface IProperty {
   type: string;
   targetLink: string;
   imgSrc: string;
+  dataSrc: string;
 }

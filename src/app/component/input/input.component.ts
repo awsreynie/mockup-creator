@@ -20,7 +20,8 @@ export class InputComponent implements IComponent {
     style: this._style,
     class: "",
     targetLink: "",
-    imgSrc: ""
+    imgSrc: "",
+    dataSrc: ""
   };
 
   private _property: IProperty;
